@@ -17,6 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\MB.SMS.Dtos\MB.SMS.Dtos.csproj" />
     <ProjectReference Include="..\MB.SMS.Entities\MB.SMS.Entities.csproj" />
   </ItemGroup>
 
