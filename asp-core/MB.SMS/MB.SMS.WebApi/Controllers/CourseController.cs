@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MB.SMS.Entities;
 using MB.SMS.WebApi.Data;
+using AutoMapper;
+using MB.SMS.Dtos;
 
 namespace MB.SMS.WebApi.Controllers
 {
@@ -15,91 +17,82 @@ namespace MB.SMS.WebApi.Controllers
     public class CourseController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
+        private readonly IMapper _mapper;
 
-        public CourseController(ApplicationDbContext context)
+        public CourseController(ApplicationDbContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Course>>> GetCourses()
+        public async Task<List<CourseDto>> GetCourses()
         {
-            return await _context.Courses.ToListAsync();
+            var courses = await _context
+                                        .Courses
+                                        .ToListAsync();
+
+            var courseDtos = _mapper.Map<List<Course>, List<CourseDto>>(courses);
+
+            return courseDtos;
         }
 
-
         [HttpGet("{id}")]
-        public async Task<ActionResult<Course>> GetCourse(int id)
+        public async Task<CourseDto> GetCourse(int id)
         {
-            var course = await _context.Courses.FindAsync(id);
+            var course = await _context
+                                        .Courses
+                                        .Include(c => c.Classes)
+                                        .Where(c => c.Id == id)
+                                        .SingleOrDefaultAsync();
 
-            if (course == null)
-            {
-                return NotFound();
-            }
+            var courseDto = _mapper.Map<CourseDto>(course);
 
-            return course;
+            return courseDto;
+
+
+
         }
 
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> EditCourse(int id, Course course)
+        public async Task EditCourse(int id, [FromBody] CourseDto courseDto)
         {
-            if (id != course.Id)
-            {
-                return BadRequest();
-            }
+            var course = await _context
+                                        .Courses
+                                        .FindAsync(id);
 
-            _context.Entry(course).State = EntityState.Modified;
+            _mapper.Map(courseDto, course);
 
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!CourseExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
+            _context.Courses.Update(course);
+            await _context.SaveChangesAsync();
         }
 
 
         [HttpPost]
-        public async Task<ActionResult<Course>> CreateCourse(Course course)
+        public async Task<CourseDto> CreateCourse([FromBody] CourseDto courseDto)
         {
-            _context.Courses.Add(course);
+            var course = _mapper.Map<Course>(courseDto);
+
+            await _context.Courses.AddAsync(course);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetCourse", new { id = course.Id }, course);
+            courseDto.Id = course.Id;
+
+            return courseDto;
+
+
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteCourse(int id)
+        public async Task DeleteCourse(int id)
         {
             var course = await _context.Courses.FindAsync(id);
-            if (course == null)
-            {
-                return NotFound();
-            }
 
             _context.Courses.Remove(course);
             await _context.SaveChangesAsync();
 
-            return NoContent();
-        }
-
-        private bool CourseExists(int id)
-        {
-            return _context.Courses.Any(e => e.Id == id);
         }
     }
 }

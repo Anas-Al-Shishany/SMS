@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MB.SMS.Entities;
 using MB.SMS.WebApi.Data;
+using AutoMapper;
+using MB.SMS.Dtos;
 
 namespace MB.SMS.WebApi.Controllers
 {
@@ -15,87 +17,77 @@ namespace MB.SMS.WebApi.Controllers
     public class TeacherController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
+        private readonly IMapper _mapper;
 
-        public TeacherController(ApplicationDbContext context)
+        public TeacherController(ApplicationDbContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Teacher>>> GetTeachers()
+        public async Task<List<TeacherDto>> GetTeachers()
         {
-            return await _context.Teachers.ToListAsync();
+            var teachers = await _context
+                                        .Teachers
+                                        .ToListAsync();
+            var teacherDtos = _mapper.Map<List<Teacher>, List<TeacherDto>>(teachers);
+
+            return teacherDtos;
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Teacher>> GetTeacher(int id)
+        public async Task<TeacherDto> GetTeacher(int id)
         {
-            var teacher = await _context.Teachers.FindAsync(id);
+            var teacher = await _context
+                                        .Teachers
+                                        .Include(t => t.Classes)
+                                        .Where(t => t.Id == id)
+                                        .SingleOrDefaultAsync();
 
-            if (teacher == null)
-            {
-                return NotFound();
-            }
+            var teacherDto = _mapper.Map<TeacherDto>(teacher);
 
-            return teacher;
+            return teacherDto;
+
+            
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> EditTeacher(int id, Teacher teacher)
+        public async Task EditTeacher(int id, [FromBody] TeacherDto teacherDto)
         {
-            if (id != teacher.Id)
-            {
-                return BadRequest();
-            }
+            var teacher = await _context
+                                        .Teachers
+                                        .FindAsync(id);
+            _mapper.Map(teacherDto, teacher);
 
-            _context.Entry(teacher).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!TeacherExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
+            _context.Teachers.Update(teacher);
+            await _context.SaveChangesAsync();
         }
 
         [HttpPost]
-        public async Task<ActionResult<Teacher>> CreateTeacher(Teacher teacher)
+        public async Task<TeacherDto> CreateTeacher([FromBody] TeacherDto teacherDto)
         {
-            _context.Teachers.Add(teacher);
+            var teacher = _mapper.Map<Teacher>(teacherDto);
+
+            await _context.Teachers.AddAsync(teacher);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetTeacher", new { id = teacher.Id }, teacher);
+            teacherDto.Id = teacher.Id;
+
+            return teacherDto;
+
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteTeacher(int id)
+        public async Task DeleteTeacher(int id)
         {
             var teacher = await _context.Teachers.FindAsync(id);
-            if (teacher == null)
-            {
-                return NotFound();
-            }
-
+            
             _context.Teachers.Remove(teacher);
             await _context.SaveChangesAsync();
 
-            return NoContent();
         }
 
-        private bool TeacherExists(int id)
-        {
-            return _context.Teachers.Any(e => e.Id == id);
-        }
+       
     }
 }

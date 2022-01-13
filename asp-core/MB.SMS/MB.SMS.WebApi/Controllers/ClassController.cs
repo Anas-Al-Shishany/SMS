@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MB.SMS.Entities;
 using MB.SMS.WebApi.Data;
+using AutoMapper;
+using MB.SMS.Dtos;
 
 namespace MB.SMS.WebApi.Controllers
 {
@@ -15,91 +17,81 @@ namespace MB.SMS.WebApi.Controllers
     public class ClassController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
+        private readonly IMapper _mapper;
 
-        public ClassController(ApplicationDbContext context)
+        public ClassController(ApplicationDbContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Class>>> GetClasses()
+        public async Task<List<ClassDto>> GetClasses()
         {
-            return await _context.Classes.ToListAsync();
+            var classes = await _context
+                                        .Classes
+                                        .ToListAsync();
+
+            var classDtos = _mapper.Map<List<Class>, List<ClassDto>>(classes);
+
+            return classDtos;
         }
 
-
         [HttpGet("{id}")]
-        public async Task<ActionResult<Class>> GetClass(int id)
+        public async Task<ClassDto> GetClass(int id)
         {
-            var @class = await _context.Classes.FindAsync(id);
+            var @class = await _context
+                                        .Classes
+                                        .Include(c => c.Students)
+                                        .Where(c => c.Id == id)
+                                        .SingleOrDefaultAsync();
 
-            if (@class == null)
-            {
-                return NotFound();
-            }
+            var classDto = _mapper.Map<ClassDto>(@class);
 
-            return @class;
+            return classDto;
+
+
+
         }
 
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> EditClass(int id, Class @class)
+        public async Task EditClass(int id, [FromBody] ClassDto classDto)
         {
-            if (id != @class.Id)
-            {
-                return BadRequest();
-            }
+            var @class = await _context
+                                        .Classes
+                                        .FindAsync(id);
 
-            _context.Entry(@class).State = EntityState.Modified;
+            _mapper.Map(classDto, @class);
 
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!ClassExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
+            _context.Classes.Update(@class);
+            await _context.SaveChangesAsync();
         }
 
 
         [HttpPost]
-        public async Task<ActionResult<Class>> CreateClass(Class @class)
+        public async Task<ClassDto> CreateClass([FromBody] ClassDto classDto)
         {
-            _context.Classes.Add(@class);
+            var @class = _mapper.Map<Class>(classDto);
+
+            await _context.Classes.AddAsync(@class);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetClass", new { id = @class.Id }, @class);
+            classDto.Id = @class.Id;
+
+            return classDto;
+
+
         }
 
-
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteClass(int id)
+        public async Task DeleteClass(int id)
         {
             var @class = await _context.Classes.FindAsync(id);
-            if (@class == null)
-            {
-                return NotFound();
-            }
 
             _context.Classes.Remove(@class);
             await _context.SaveChangesAsync();
 
-            return NoContent();
-        }
-
-        private bool ClassExists(int id)
-        {
-            return _context.Classes.Any(e => e.Id == id);
         }
     }
 }
