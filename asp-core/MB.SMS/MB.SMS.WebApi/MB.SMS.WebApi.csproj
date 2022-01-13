@@ -20,8 +20,4 @@
     <ProjectReference Include="..\MB.SMS.Entities\MB.SMS.Entities.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Data\Migrations\" />
-  </ItemGroup>
-
 </Project>

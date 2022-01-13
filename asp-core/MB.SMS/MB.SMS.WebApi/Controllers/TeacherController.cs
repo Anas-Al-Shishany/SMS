@@ -78,7 +78,6 @@ namespace MB.SMS.WebApi.Controllers
             return CreatedAtAction("GetTeacher", new { id = teacher.Id }, teacher);
         }
 
-        // DELETE: api/Teacher/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteTeacher(int id)
         {
