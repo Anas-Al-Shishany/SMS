@@ -1,1 +1,69 @@
-<p>class-add-edit works!</p>
+<div class="container my-4">
+    <h1 *ngIf="classId == pageModeEnum.create">Add a new Car</h1>
+    <h1 *ngIf="pageMode == pageModeEnum.edit">Edit car</h1>
+    <hr>
+
+    <form (ngSubmit)="addEditClass()" [formGroup]="classForm" >
+
+        <div>
+            <button class="mr-2" type="submit" mat-raised-button color="primary">
+                <span *ngIf="pageMode == pageModeEnum.create">Add</span>
+                <span *ngIf="pageMode == pageModeEnum.edit">Save</span>
+            </button>
+            <button style="margin: 6px;" mat-raised-button [routerLink]="['/classes']">Cancel</button>
+        </div>
+        <hr>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div>
+                    <mat-form-field appearance="fill" class="w-100">
+                        <mat-label>Room Name</mat-label>
+                        <input matInput placeholder="Room Name" formControlName="room_name" required>
+                        <mat-error>Room Name is required</mat-error>
+                    </mat-form-field>
+                </div>
+                <div>
+                    <mat-form-field appearance="fill" class="w-100">
+                        <mat-label>Semester</mat-label>
+                        <input matInput placeholder="Semester" formControlName="semester"  required>
+                        <mat-error>Semester is required</mat-error>
+                    </mat-form-field>
+                </div>
+                <div>
+                    <mat-form-field appearance="fill" class="w-100">
+                        <mat-label>Time</mat-label>
+                        <input matInput placeholder="Time" formControlName="time" required>
+                        <mat-error>Time is required</mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+
+
+            <div class="col-md-6">
+                <div>
+                    <mat-form-field appearance="fill" class="w-100">
+                        <mat-label>Time</mat-label>
+                        <input matInput placeholder="Time" formControlName="time" required>
+                        <mat-error>Time is required</mat-error>
+                    </mat-form-field>
+                </div>
+                <div>
+                    <mat-form-field appearance="fill" class="w-100">
+                        <mat-label>Course</mat-label>
+                        <input matInput placeholder="Course" formControlName="course" required>
+                        <mat-error>Course is required</mat-error>
+                    </mat-form-field>
+                </div>
+                <div>
+                    <mat-form-field appearance="fill" class="w-100">
+                        <mat-label>Teacher</mat-label>
+                        <input matInput placeholder="Teacher" formControlName="teacher" required>
+                        <mat-error>Teacher is required</mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+        </div>
+
+    </form>
+</div>
