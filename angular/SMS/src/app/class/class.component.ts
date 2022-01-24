@@ -1,4 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Class } from '../shared/Models/Class';
+import { ClassDeleteDialogComponent } from './class-delete-dialog/class-delete-dialog.component';
+import { ClassService } from './class.service';
 
 @Component({
   selector: 'app-class',
@@ -7,9 +12,49 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ClassComponent implements OnInit {
 
-  constructor() { }
+  class!: Class[]
+  showSpinner:boolean = true
+
+  constructor(private classSvc:ClassService,
+              private dialog:MatDialog,
+              private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
+    this.getAllClasses();
+  }
+
+  deleteClass(id: Number): void{
+    const dialogBox = this.dialog.open(ClassDeleteDialogComponent,{
+      width: "200px"
+    });
+
+    dialogBox.afterClosed().subscribe(
+      res =>{
+
+        if(res){
+
+          this.classSvc.DeleteClass(id).subscribe(
+            result =>{
+              this.snackBar.open("class has been destroyed")
+              this.getAllClasses()
+            },
+            err =>{
+              this.snackBar.open("wrecking ball missing(INTERNAL 500)")
+            }
+          )
+        }
+
+      }
+    )
+  }
+
+  private getAllClasses(){
+    this.classSvc.getClasses().subscribe(
+      classs =>{
+        this.class = classs,
+        this.showSpinner == false
+      }
+    )
   }
 
 }

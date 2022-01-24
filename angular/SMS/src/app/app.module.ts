@@ -8,7 +8,7 @@ import { StudentComponent } from './student/student.component';
 import { CourseComponent } from './course/course.component';
 import { ClassComponent } from './class/class.component';
 import { HttpClientModule } from '@angular/common/http';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from './shared/shared.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -26,6 +26,7 @@ import { TeacherAddEditComponent } from './teacher/teacher-add-edit/teacher-add-
 import { StudentAddEditComponent } from './student/student-add-edit/student-add-edit.component';
 import { StudentDeleteDialogComponent } from './student/student-delete-dialog/student-delete-dialog.component';
 import { StudentDetailsComponent } from './student/student-details/student-details.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -52,11 +53,11 @@ import { StudentDetailsComponent } from './student/student-details/student-detai
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    NgbModule,
     FormsModule,
     ReactiveFormsModule,
     SharedModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    NgbModule
   ],
   providers: [
     {provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {duration: 2500}}

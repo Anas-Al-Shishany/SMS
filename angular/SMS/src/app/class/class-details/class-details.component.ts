@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Class } from 'src/app/shared/Models/Class';
+import { ClassService } from '../class.service';
 
 @Component({
   selector: 'app-class-details',
@@ -7,9 +10,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ClassDetailsComponent implements OnInit {
 
-  constructor() { }
+  classDetails!: Class
+
+  constructor(private classSvc: ClassService,
+              private route: ActivatedRoute) { }
 
   ngOnInit(): void {
+    const classId = Number(this.route.snapshot.paramMap.get('id'))
+
+    this.classSvc.getClassById(classId).subscribe(
+      classs =>{
+        this.classDetails = classs
+      }
+
+    )
   }
 
 }

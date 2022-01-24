@@ -1,6 +1,5 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { CarouselComponent } from 'ng-bootstrap';
 import { Observable } from 'rxjs';
 import { Class } from '../shared/Models/Class';
 
