@@ -12,7 +12,7 @@ import { ClassService } from './class.service';
 })
 export class ClassComponent implements OnInit {
 
-  class!: Class[]
+  classes!: Class[]
   showSpinner:boolean = true
 
   constructor(private classSvc:ClassService,
@@ -51,7 +51,7 @@ export class ClassComponent implements OnInit {
   private getAllClasses(){
     this.classSvc.getClasses().subscribe(
       classs =>{
-        this.class = classs,
+        this.classes = classs,
         this.showSpinner == false
       }
     )
