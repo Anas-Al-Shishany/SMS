@@ -20,15 +20,15 @@ export class StudentService {
     return this.http.get<Student>(this.url + 'GetStudent/' + id)
   }
 
-  EditCourse(student: Student):Observable<any>{
+  EditStudent(student: Student):Observable<any>{
     return this.http.put<any>(this.url + 'EditStudent/' + student.id, student)
   }
 
-  CreateCourse(student: Student):Observable<Student>{
+  CreateStudent(student: Student):Observable<Student>{
     return this.http.post<Student>(this.url + 'CreateStudent', student)
   }
 
-  DeleteCourse(id:Number):Observable<any>{
+  DeleteStudent(id:Number):Observable<any>{
     return this.http.delete<any>(this.url + 'DeleteStudent/' + id)
   }
 }
