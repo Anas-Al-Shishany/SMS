@@ -1,14 +1,19 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+
 import { ClassAddEditComponent } from './class/class-add-edit/class-add-edit.component';
 import { ClassDetailsComponent } from './class/class-details/class-details.component';
 import { ClassComponent } from './class/class.component';
+
 import { CourseAddEditComponent } from './course/course-add-edit/course-add-edit.component';
 import { CourseDetailsComponent } from './course/course-details/course-details.component';
 import { CourseComponent } from './course/course.component';
+import { HomeComponent } from './home/home.component';
+
 import { StudentAddEditComponent } from './student/student-add-edit/student-add-edit.component';
 import { StudentDetailsComponent } from './student/student-details/student-details.component';
 import { StudentComponent } from './student/student.component';
+
 import { TeacherAddEditComponent } from './teacher/teacher-add-edit/teacher-add-edit.component';
 import { TeacherDetailsComponent } from './teacher/teacher-details/teacher-details.component';
 import { TeacherComponent } from './teacher/teacher.component';
@@ -33,6 +38,10 @@ const routes: Routes = [
   {path: 'students/:id', component:StudentDetailsComponent},
   {path: 'students/add', component:StudentAddEditComponent},
   {path: 'students/edit/:id', component:StudentAddEditComponent},
+
+  {path: '**', component:HomeComponent}
+
+  
 ];
 
 @NgModule({

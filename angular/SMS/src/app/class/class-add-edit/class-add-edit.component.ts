@@ -16,7 +16,7 @@ export class ClassAddEditComponent implements OnInit {
   pageModeEnum = PageMode;
 
   classId: number = 0;
-  pageMode: PageMode = PageMode.create;
+  pageMode: PageMode = PageMode.Add;
 
   classForm = this.fb.group({
     id: [0],
@@ -41,7 +41,7 @@ export class ClassAddEditComponent implements OnInit {
 
     this.setPageMode();
 
-    if (this.pageMode == PageMode.edit) {
+    if (this.pageMode == PageMode.Edit) {
       this.preparePageForEditMode();
     }
   }
@@ -52,7 +52,7 @@ export class ClassAddEditComponent implements OnInit {
 
       const classs: Class = this.classForm.value;
 
-      if (this.pageMode == PageMode.create) {
+      if (this.pageMode == PageMode.Add) {
         this.classSvc.CreateClass(classs).subscribe(
           res => {
             this.snackBar.open("Class has been constructed");
@@ -77,7 +77,7 @@ export class ClassAddEditComponent implements OnInit {
 
     if (this.route.snapshot.paramMap.get("id")) {
       this.classId = Number(this.route.snapshot.paramMap.get("id"));
-      this.pageMode = PageMode.edit;
+      this.pageMode = PageMode.Edit;
     }
   }
 

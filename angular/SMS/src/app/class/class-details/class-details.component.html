@@ -1,1 +1,33 @@
-<p>class-details works!</p>
+<div class="container my-4">
+    <h1 class="page-title">Class</h1>
+    <hr>
+    <button mat-raised-button [routerLink]="['/classes']">sdfds</button>
+    <hr>
+
+    <div class="row mb-3">
+        <div class="col-md-2 font-weight-bold">Room Name</div>
+        <div class="col-md-10">{{classDetails?.room_name}}</div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-md-2 font-weight-bold">Semester</div>
+        <div class="col-md-10">{{classDetails?.semester}}</div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-md-2 font-weight-bold">Time</div>
+        <div class="col-md-10">{{classDetails?.Time}}</div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-md-2 font-weight-bold">Student</div>
+        <div class="col-md-10">{{ classDetails?.student }}
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-md-2 font-weight-bold">Course</div>
+        <div class="col-md-10">{{ classDetails?.course }}</div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-md-2 font-weight-bold">Teacher</div>
+        <div class="col-md-10">{{ classDetails?.teacher }}</div>
+    </div>
+    
+</div>

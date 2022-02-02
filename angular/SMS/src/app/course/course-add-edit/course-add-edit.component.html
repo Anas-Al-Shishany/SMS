@@ -1,1 +1,44 @@
-<p>course-add-edit works!</p>
+<div class="container my-4">
+    <h1 *ngIf="courseId == pageModeEnum.Add">Add a new course</h1>
+    <h1 *ngIf="pageMode == pageModeEnum.Edit">Edit course</h1>
+    <hr>
+
+    <form (ngSubmit)="addEditCourse()" [formGroup]="courseForm" >
+
+        <div>
+            <button class="mr-2" type="submit" mat-raised-button color="primary">
+                <span *ngIf="pageMode == pageModeEnum.Add">Add</span>
+                <span *ngIf="pageMode == pageModeEnum.Edit">Save</span>
+            </button>
+            <button style="margin: 6px;" mat-raised-button [routerLink]="['/courses']">Cancel</button>
+        </div>
+        <hr>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div>
+                    <mat-form-field appearance="fill" class="w-100">
+                        <mat-label>Name</mat-label>
+                        <input matInput placeholder="Name" formControlName="name" required>
+                        <mat-error>Name is required</mat-error>
+                    </mat-form-field>
+                </div>
+                <div>
+                    <mat-form-field appearance="fill" class="w-100">
+                        <mat-label>Description</mat-label>
+                        <input matInput placeholder="Description" formControlName="description"  required>
+                        <mat-error>Description is required</mat-error>
+                    </mat-form-field>
+                </div>
+                <div>
+                    <mat-form-field appearance="fill" class="w-100">
+                        <mat-label>Class</mat-label>
+                        <input matInput placeholder="Class" formControlName="class" required>
+                        <mat-error>Class is required</mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+        </div>
+
+    </form>
+</div>

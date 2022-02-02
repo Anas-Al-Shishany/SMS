@@ -8,7 +8,7 @@ import { Teacher } from '../shared/Models/Teacher';
 })
 export class TeacherService {
 
-  private url: string = 'https://localhost:44313/api/student/'
+  private url: string = 'https://localhost:44313/api/teacher/'
 
   constructor(private http:HttpClient) { }
 

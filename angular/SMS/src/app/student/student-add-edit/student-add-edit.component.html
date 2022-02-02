@@ -1,1 +1,47 @@
-<p>student-add-edit works!</p>
+<div class="container my-4">
+    <h1 *ngIf="studentId == pageModeEnum.Add">Add a new student</h1>
+    <h1 *ngIf="pageMode == pageModeEnum.Edit">Edit student</h1>
+    <hr>
+
+    <form (ngSubmit)="addEditStudent()" [formGroup]="studentForm" >
+
+        <div>
+            <button class="mr-2" type="submit" mat-raised-button color="primary">
+                <span *ngIf="pageMode == pageModeEnum.Add">Add</span>
+                <span *ngIf="pageMode == pageModeEnum.Edit">Save</span>
+            </button>
+            <button style="margin: 6px;" mat-raised-button [routerLink]="['/students']">Cancel</button>
+        </div>
+        <hr>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div>
+                    <div>
+                        <mat-form-field appearance="fill" class="w-100">
+                            <mat-label>Name</mat-label>
+                            <input matInput placeholder="Name" formControlName="name"  required>
+                            <mat-error>Name is required</mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div>
+                        <mat-form-field appearance="fill" class="w-100">
+                            <mat-label>GPA</mat-label>
+                            <input matInput placeholder="GPA" formControlName="GPA" required>
+                            <mat-error>GPA is required</mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div>
+                        <mat-form-field appearance="fill" class="w-100">
+                            <mat-label>Class</mat-label>
+                            <input matInput placeholder="Class" formControlName="class" required>
+                            <mat-error>Class is required</mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </form>
+</div>

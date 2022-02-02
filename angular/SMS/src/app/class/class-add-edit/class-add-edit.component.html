@@ -1,16 +1,16 @@
 <div class="container my-4">
-    <h1 *ngIf="classId == pageModeEnum.create">Add a new Car</h1>
-    <h1 *ngIf="pageMode == pageModeEnum.edit">Edit car</h1>
+    <h1 *ngIf="classId == pageModeEnum.Add">Add a new class</h1>
+    <h1 *ngIf="pageMode == pageModeEnum.Edit">Edit class</h1>
     <hr>
 
     <form (ngSubmit)="addEditClass()" [formGroup]="classForm" >
 
         <div>
             <button class="mr-2" type="submit" mat-raised-button color="primary">
-                <span *ngIf="pageMode == pageModeEnum.create">Add</span>
-                <span *ngIf="pageMode == pageModeEnum.edit">Save</span>
+                <span *ngIf="pageMode == pageModeEnum.Add">Add</span>
+                <span *ngIf="pageMode == pageModeEnum.Edit">Save</span>
             </button>
-            <button style="margin: 6px;" mat-raised-button [routerLink]="['/classes']">Cancel</button>
+            <button style="margin: 6px;" mat-raised-button [routerLink]="['/classes']">sdfds</button>
         </div>
         <hr>
 
@@ -43,9 +43,9 @@
             <div class="col-md-6">
                 <div>
                     <mat-form-field appearance="fill" class="w-100">
-                        <mat-label>Time</mat-label>
-                        <input matInput placeholder="Time" formControlName="time" required>
-                        <mat-error>Time is required</mat-error>
+                        <mat-label>Student</mat-label>
+                        <input matInput placeholder="Student" formControlName="student" required>
+                        <mat-error>Student is required</mat-error>
                     </mat-form-field>
                 </div>
                 <div>

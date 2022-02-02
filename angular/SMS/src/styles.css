@@ -1,4 +1,20 @@
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+    height: 100%;
+}
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.brand-name {
+    display: inline-block;
+    margin: 8px 10px 0;
+}
+
+.nav-item{
+    font-size: 16px;
+    font-weight: 500;
+}

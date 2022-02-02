@@ -1,1 +1,34 @@
-<p>course works!</p>
+<div class="container my-4">
+    <h1 class="page-title">Courses</h1>
+    <hr>
+
+    <button mat-raised-button color="primary" class="mb-3" [routerLink]="['/courses/add']">Add a new course</button>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Class</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let course of courses">
+                <td>{{course.name}}</td>
+                <td>{{course.description}}</td>
+                <td>{{course.class}}</td>
+                <td>
+                    <a class="mr-2 text-info" [routerLink]="['/courses', course.id]">
+                        <mat-icon>info</mat-icon>
+                    </a>
+                    <a class="mr-2" [routerLink]="['/courses/edit', course.id]">
+                        <mat-icon>edit</mat-icon>
+                    </a>
+                    <a class="pointer text-danger" (click)="deleteCourse(course.id)">
+                        <mat-icon>delete</mat-icon>
+                    </a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

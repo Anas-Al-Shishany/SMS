@@ -16,7 +16,7 @@ export class CourseAddEditComponent implements OnInit {
   pageModeEnum = PageMode;
 
   courseId: number = 0;
-  pageMode: PageMode = PageMode.create;
+  pageMode: PageMode = PageMode.Add;
 
   courseForm = this.fb.group({
     id: [0],
@@ -37,7 +37,7 @@ export class CourseAddEditComponent implements OnInit {
 
     this.setPageMode();
 
-    if (this.pageMode == PageMode.edit) {
+    if (this.pageMode == PageMode.Edit) {
       this.preparePageForEditMode();
     }
   }
@@ -48,7 +48,7 @@ export class CourseAddEditComponent implements OnInit {
 
       const course: Course = this.courseForm.value;
 
-      if (this.pageMode == PageMode.create) {
+      if (this.pageMode == PageMode.Add) {
         this.courseSvc.CreateCourse(course).subscribe(
           res => {
             this.snackBar.open("Course has been created");
@@ -73,7 +73,7 @@ export class CourseAddEditComponent implements OnInit {
 
     if (this.route.snapshot.paramMap.get("id")) {
       this.courseId = Number(this.route.snapshot.paramMap.get("id"));
-      this.pageMode = PageMode.edit;
+      this.pageMode = PageMode.Edit;
     }
   }
 

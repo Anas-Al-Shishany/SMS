@@ -42,7 +42,7 @@ namespace MB.SMS.WebApi.Controllers
         {
             var @class = await _context
                                         .Classes
-                                        .Include(c => c.Students)
+                                        .Include(s => s.Students)
                                         .Where(c => c.Id == id)
                                         .SingleOrDefaultAsync();
 
@@ -54,6 +54,16 @@ namespace MB.SMS.WebApi.Controllers
 
         }
 
+        [HttpPost]
+        public async Task<ClassDto> CreateClass([FromBody] ClassDto classDto)
+        {
+            var driver = _mapper.Map<Class>(classDto);
+            await _context.Classes.AddAsync(driver);
+            await _context.SaveChangesAsync();
+
+            classDto.Id = driver.Id;
+            return classDto;
+        }
 
         [HttpPut("{id}")]
         public async Task EditClass(int id, [FromBody] ClassDto classDto)
@@ -69,20 +79,6 @@ namespace MB.SMS.WebApi.Controllers
         }
 
 
-        [HttpPost]
-        public async Task<ClassDto> CreateClass([FromBody] ClassDto classDto)
-        {
-            var @class = _mapper.Map<Class>(classDto);
-
-            await _context.Classes.AddAsync(@class);
-            await _context.SaveChangesAsync();
-
-            classDto.Id = @class.Id;
-
-            return classDto;
-
-
-        }
 
         [HttpDelete("{id}")]
         public async Task DeleteClass(int id)

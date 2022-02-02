@@ -1,1 +1,40 @@
-<p>class works!</p>
+<div class="container my-4">
+    <h1 class="page-title">Classes</h1>
+    <hr>
+
+    <button mat-raised-button color="primary" class="mb-3" [routerLink]="['/classes/add']">Add a new class</button>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Room Name</th>
+                <th>Semester</th>
+                <th>Time</th>
+                <th>Student</th>
+                <th>Course</th>
+                <th>Teacher</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let class of classes">
+                <td>{{class.room_name}}</td>
+                <td>{{class.semester}}</td>
+                <td>{{class.Time}}</td>
+                <td>{{class.student}}</td>
+                <td>{{class.course }}</td>
+                <td>{{class.teacher }}</td>
+                <td>
+                    <a class="mr-2 text-info" [routerLink]="['/classes', class.id]">
+                        <mat-icon>info</mat-icon>
+                    </a>
+                    <a class="mr-2" [routerLink]="['/classes/edit', class.id]">
+                        <mat-icon>edit</mat-icon>
+                    </a>
+                    <a class="pointer text-danger" (click)="deleteClass(class.id)">
+                        <mat-icon>delete</mat-icon>
+                    </a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
