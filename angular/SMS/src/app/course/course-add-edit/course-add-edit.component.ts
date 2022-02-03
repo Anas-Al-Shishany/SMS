@@ -21,8 +21,7 @@ export class CourseAddEditComponent implements OnInit {
   courseForm = this.fb.group({
     id: [0],
     name: ['', Validators.required],
-    description: ['', Validators.required],
-    class: ['', Validators.required],
+    description: ['', Validators.required]
   });
 
   constructor(
@@ -86,7 +85,6 @@ export class CourseAddEditComponent implements OnInit {
           id: course.id,
           name: course.name,
           description: course.description,
-          class: course.class,
           
         });
       }

@@ -8,7 +8,6 @@
             <tr>
                 <th>Name</th>
                 <th>Description</th>
-                <th>Class</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -16,7 +15,6 @@
             <tr *ngFor="let course of courses">
                 <td>{{course.name}}</td>
                 <td>{{course.description}}</td>
-                <td>{{course.class}}</td>
                 <td>
                     <a class="mr-2 text-info" [routerLink]="['/courses', course.id]">
                         <mat-icon>info</mat-icon>

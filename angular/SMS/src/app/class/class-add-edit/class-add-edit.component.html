@@ -3,14 +3,14 @@
     <h1 *ngIf="pageMode == pageModeEnum.Edit">Edit class</h1>
     <hr>
 
-    <form (ngSubmit)="addEditClass()" [formGroup]="classForm" >
+    <form (ngSubmit)="addEditClass()" [formGroup]="classForm">
 
         <div>
             <button class="mr-2" type="submit" mat-raised-button color="primary">
                 <span *ngIf="pageMode == pageModeEnum.Add">Add</span>
                 <span *ngIf="pageMode == pageModeEnum.Edit">Save</span>
             </button>
-            <button style="margin: 6px;" mat-raised-button [routerLink]="['/classes']">sdfds</button>
+            <button style="margin: 6px;" mat-raised-button [routerLink]="['/classes']">Back to list</button>
         </div>
         <hr>
 
@@ -19,14 +19,14 @@
                 <div>
                     <mat-form-field appearance="fill" class="w-100">
                         <mat-label>Room Name</mat-label>
-                        <input matInput placeholder="Room Name" formControlName="room_name" required>
+                        <input matInput placeholder="Room Name" formControlName="roomName" required>
                         <mat-error>Room Name is required</mat-error>
                     </mat-form-field>
                 </div>
                 <div>
                     <mat-form-field appearance="fill" class="w-100">
                         <mat-label>Semester</mat-label>
-                        <input matInput placeholder="Semester" formControlName="semester"  required>
+                        <input matInput placeholder="Semester" formControlName="semester" required>
                         <mat-error>Semester is required</mat-error>
                     </mat-form-field>
                 </div>
@@ -41,13 +41,6 @@
 
 
             <div class="col-md-6">
-                <div>
-                    <mat-form-field appearance="fill" class="w-100">
-                        <mat-label>Student</mat-label>
-                        <input matInput placeholder="Student" formControlName="student" required>
-                        <mat-error>Student is required</mat-error>
-                    </mat-form-field>
-                </div>
                 <div>
                     <mat-form-field appearance="fill" class="w-100">
                         <mat-label>Course</mat-label>
