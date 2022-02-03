@@ -20,12 +20,12 @@ export class ClassAddEditComponent implements OnInit {
 
   classForm = this.fb.group({
     id: [0],
-    room_name: ['', Validators.required],
+    roomName: ['', Validators.required],
     semester: ['', Validators.required],
     time: ['', Validators.required],
-    course_id: ['', Validators.required],
+    courseId: ['', Validators.required],
     course: ['', Validators.required],
-    teacher_id: ['', Validators.required],
+    teacherId: ['', Validators.required],
     teacher: ['', Validators.required]
   });
 
@@ -88,12 +88,12 @@ export class ClassAddEditComponent implements OnInit {
 
         this.classForm.patchValue({
           id: classs.id,
-          room_name: classs.room_name,
+          roomName: classs.roomName,
           semester: classs.semester,
-          Time: classs.Time,
-          course_id: classs.course_id,
+          time: classs.time,
+          courseId: classs.courseId,
           course: classs.course,
-          teacher_id: classs.teacher_id,
+          teacherId: classs.teacherId,
           teacher: classs.teacher
         });
       }

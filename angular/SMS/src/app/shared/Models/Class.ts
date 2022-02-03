@@ -5,16 +5,15 @@ import { Teacher } from "./Teacher";
 
 export interface Class{
     id:Number;
-    room_name:String;
+    roomName:String;
     semester:String;
-    Time:Time;
+    time:Time;
 
     student:Student;
 
-    course_id:Number;
+    courseId:Number;
     course:Course;
 
-    teacher_id:Number;
-    teacher:Teacher
-
+    teacherId:Number;
+    teacher:Teacher;
 }

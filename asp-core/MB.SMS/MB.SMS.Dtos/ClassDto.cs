@@ -9,15 +9,15 @@ namespace MB.SMS.Dtos
     public class ClassDto
     {
         public int Id { get; set; }
-        public string Room_Name { get; set; }
+        public string RoomName { get; set; }
         public int Semester { get; set; }
         public string Time { get; set; }
         public List<StudentDto> Students { get; set; }
 
-        public int? Course_Id { get; set; }
+        public int? CourseId { get; set; }
         public CourseDto Course { get; set; }
 
-        public int Teacher_Id { get; set; }
+        public int TeacherId { get; set; }
         public TeacherDto Teacher { get; set; }
     }
 }
