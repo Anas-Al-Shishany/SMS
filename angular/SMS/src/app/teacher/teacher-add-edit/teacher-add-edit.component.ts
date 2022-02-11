@@ -3,6 +3,8 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PageMode } from 'src/app/shared/enums/PageMode';
+import { Class } from 'src/app/shared/Models/Class';
+import { Student } from 'src/app/shared/Models/Student';
 import { Teacher } from 'src/app/shared/Models/Teacher';
 import { TeacherService } from '../teacher.service';
 
@@ -13,17 +15,21 @@ import { TeacherService } from '../teacher.service';
 })
 export class TeacherAddEditComponent implements OnInit {
 
+  students!:Student[]
+
   pageModeEnum = PageMode;
 
   teacherId: number = 0;
   pageMode: PageMode = PageMode.Add;
 
+  classes!: Class[]
+
   teacherForm = this.fb.group({
     id: [0],
     name: ['', Validators.required],
-    date_of_birth: ['', Validators.required],
-    school_degree: ['', Validators.required],
-    alamamater: ['', Validators.required],
+    dateOfBirth: ['', Validators.required],
+    schoolDegree: ['', Validators.required],
+    almaMater: ['', Validators.required],
     class: ['', Validators.required],
   });
 
@@ -87,11 +93,10 @@ export class TeacherAddEditComponent implements OnInit {
         this.teacherForm.patchValue({
           id: teacher.id,
           name: teacher.name,
-          date_of_birth: teacher.date_of_birth,
-          school_degree: teacher.school_degree,
-          alamamater: teacher.alamamater,
-          class: teacher.class,
-          
+          dateOfBirth: teacher.dateOfBirth,
+          schoolDegree: teacher.schoolDegree,
+          almaMater: teacher.almaMater,
+          class: teacher.class,        
         });
       }
     );

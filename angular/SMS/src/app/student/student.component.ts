@@ -25,7 +25,7 @@ export class StudentComponent implements OnInit {
 
   deleteStudent(id: Number): void{
     const dialogBox = this.dialog.open(StudentDeleteDialogComponent,{
-      width: "200px"
+      width: "275px"
     });
 
     dialogBox.afterClosed().subscribe(

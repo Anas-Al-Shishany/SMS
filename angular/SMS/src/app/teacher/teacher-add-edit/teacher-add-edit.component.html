@@ -26,7 +26,7 @@
                 <div>
                     <mat-form-field appearance="fill" class="w-100">
                         <mat-label>Date of Birth</mat-label>
-                        <input matInput [matDatepicker]="picker" formControlName="Date of Birth" required>
+                        <input matInput [matDatepicker]="picker" formControlName="dateOfBirth" required>
                         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                         <mat-datepicker #picker></mat-datepicker>
                         <mat-error>Date of Birth</mat-error>
@@ -35,7 +35,7 @@
                 <div>
                     <mat-form-field appearance="fill" class="w-100">
                         <mat-label>School Degree</mat-label>
-                        <input matInput placeholder="School Degree" formControlName="school_degree" required>
+                        <input matInput placeholder="School Degree" formControlName="schoolDegree" required>
                         <mat-error>School Degree is required</mat-error>
                     </mat-form-field>
                 </div>
@@ -45,16 +45,21 @@
             <div class="col-md-6">
                 <div>
                     <mat-form-field appearance="fill" class="w-100">
-                        <mat-label>Alamamater</mat-label>
-                        <input matInput placeholder="Alamamater" formControlName="alamamater" required>
-                        <mat-error>Alamamater is required</mat-error>
+                        <mat-label>Classes</mat-label>
+                        <mat-select formControlName="class" multiple required>
+                            <mat-option *ngFor="let class of classes" [value]="class">
+                              {{class.roomName}}
+                            </mat-option>
+                          </mat-select>
+                        <mat-error>Class is required</mat-error>
                     </mat-form-field>
                 </div>
+                
                 <div>
                     <mat-form-field appearance="fill" class="w-100">
-                        <mat-label>Alamamater</mat-label>
-                        <input matInput placeholder="Alamamater" formControlName="alamamater" required>
-                        <mat-error>Alamamater is required</mat-error>
+                        <mat-label>Alma Mater</mat-label>
+                        <input matInput placeholder="Alma Mater" formControlName="almaMater" required>
+                        <mat-error>Alma Mater is required</mat-error>
                     </mat-form-field>
                 </div>
             </div>

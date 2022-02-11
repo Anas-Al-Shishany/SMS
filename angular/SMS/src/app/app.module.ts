@@ -14,18 +14,23 @@ import { SharedModule } from './shared/shared.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
 import { HomeComponent } from './home/home.component';
+
 import { ClassAddEditComponent } from './class/class-add-edit/class-add-edit.component';
 import { ClassDeleteDialogComponent } from './class/class-delete-dialog/class-delete-dialog.component';
 import { ClassDetailsComponent } from './class/class-details/class-details.component';
+
 import { CourseAddEditComponent } from './course/course-add-edit/course-add-edit.component';
 import { CourseDeleteDialogComponent } from './course/course-delete-dialog/course-delete-dialog.component';
 import { CourseDetailsComponent } from './course/course-details/course-details.component';
+
 import { TeacherDetailsComponent } from './teacher/teacher-details/teacher-details.component';
 import { TeacherDeleteDialogComponent } from './teacher/teacher-delete-dialog/teacher-delete-dialog.component';
 import { TeacherAddEditComponent } from './teacher/teacher-add-edit/teacher-add-edit.component';
+
 import { StudentAddEditComponent } from './student/student-add-edit/student-add-edit.component';
 import { StudentDeleteDialogComponent } from './student/student-delete-dialog/student-delete-dialog.component';
 import { StudentDetailsComponent } from './student/student-details/student-details.component';
+
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({

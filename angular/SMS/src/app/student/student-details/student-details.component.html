@@ -1,1 +1,20 @@
-<p>student-details works!</p>
+<div class="container my-4">
+    <h1 class="page-title">Student</h1>
+    <hr>
+    <button mat-raised-button [routerLink]="['/students']">Back to list</button>
+    <hr>
+
+    <div class="row mb-3">
+        <div class="col-md-2 font-weight-bold">Name</div>
+        <div class="col-md-10">{{studentDetails?.name}}</div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-md-2 font-weight-bold">GPA</div>
+        <div class="col-md-10">{{studentDetails?.gpa}}</div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-md-2 font-weight-bold">Class</div>
+        <div class="col-md-10">{{studentDetails?.class}}</div>
+    </div>
+    
+</div>

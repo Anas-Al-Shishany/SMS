@@ -3,6 +3,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PageMode } from 'src/app/shared/enums/PageMode';
+import { Class } from 'src/app/shared/Models/Class';
 import { Student } from 'src/app/shared/Models/Student';
 import { StudentService } from '../student.service';
 
@@ -13,10 +14,15 @@ import { StudentService } from '../student.service';
 })
 export class StudentAddEditComponent implements OnInit {
 
+
+  students!:Student[]
+
   pageModeEnum = PageMode;
 
   studentId: number = 0;
   pageMode: PageMode = PageMode.Add;
+
+  classes!:Class[]
 
   studentForm = this.fb.group({
     id: [0],
@@ -85,7 +91,7 @@ export class StudentAddEditComponent implements OnInit {
         this.studentForm.patchValue({
           id: student.id,
           name: student.name,
-          GPA: student.GPA,
+          GPA: student.gpa,
           class: student.class,
           
         });
