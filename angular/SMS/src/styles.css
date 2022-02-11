@@ -81,3 +81,31 @@ body {
     margin-top: -24px;
     color: gray;
 }
+
+.student-registration-wrap{
+    width: 100%;
+    height: 500px;
+    background: #fef8f5;
+}
+
+.btn-color{
+    font-weight: 500;
+    font-size: 12px;
+    letter-spacing: 1px;
+    display: inline-block;
+    padding: 8px 28px;
+    border-radius: 3px;
+    margin-top: 30px;
+    color: #fff;
+    background: #F29433;
+}
+
+.student-registration{
+    color: #1C3452;
+    text-align: center;
+}
+
+.test{
+    margin-top: -24px;
+    color: gray;
+}
