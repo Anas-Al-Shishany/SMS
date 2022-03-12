@@ -25,6 +25,8 @@ export class ClassAddEditComponent implements OnInit {
   classId: number = 0;
   pageMode: PageMode = PageMode.Add;
 
+
+  students!:Student[]
   teachers!:Teacher[]
   courses!:Course[]
 
@@ -35,6 +37,7 @@ export class ClassAddEditComponent implements OnInit {
     time: ['', Validators.required],
     courseId: [''],
     teacherId: [''],
+    students: [''],
   });
 
   constructor(
@@ -45,6 +48,7 @@ export class ClassAddEditComponent implements OnInit {
     private snackBar: MatSnackBar,
     private teacherSvc:TeacherService,
     private courseSvc: CourseService,
+    private studentSvc: StudentService
   ) { }
 
   ngOnInit(): void {
@@ -57,6 +61,7 @@ export class ClassAddEditComponent implements OnInit {
 
     this.getTeachers()
     this.getCourses()
+    this.getStudents()
   }
 
   addEditClass(): void {
@@ -101,6 +106,20 @@ export class ClassAddEditComponent implements OnInit {
       }
     )
   }
+
+  getStudents(){
+    this.studentSvc.getStudents().subscribe(
+      student =>{
+        this.students = student
+      }
+    )
+  }
+
+  comparePassengersFn(st1: Student, st2: Student): boolean {
+
+    return st1 && st2 ? st1.id === st2.id : st1 === st2;
+  }
+
   //#region Private functions
 
   private setPageMode(): void {
@@ -122,7 +141,8 @@ export class ClassAddEditComponent implements OnInit {
           semester: classs.semester,
           time: classs.time,
           courseId: classs.courseId,
-          teacherId: classs.teacherId
+          teacherId: classs.teacherId,
+          students: classs.students,
         });
       }
     );

@@ -15,7 +15,7 @@ namespace MB.SMS.Dtos
         public int Id { get; set; }
         public string RoomName { get; set; }
         public int Semester { get; set; }
-        public string Time { get; set; }
+        public DateTime Time { get; set; }
         public List<StudentDto> Students { get; set; }
 
         public int? CourseId { get; set; }

@@ -16,7 +16,7 @@
         <tbody>
             <tr *ngFor="let teacher of teachers">
                 <td>{{teacher.name}}</td>
-                <td>{{teacher.dateOfBirth}}</td>
+                <td>{{teacher.dateOfBirth| date: 'dd/MM/yyyy'}}</td>
                 <td>{{teacher.schoolDegree}}</td>
                 <td>{{teacher.almaMater}}</td>
                 <td>

@@ -33,12 +33,13 @@
                 <div>
                     <mat-form-field appearance="fill" class="w-100">
                         <mat-label>Time</mat-label>
-                        <input matInput placeholder="Time" formControlName="time" required>
+                        <input matInput [matDatepicker]="picker" formControlName="time" required>
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
                         <mat-error>Time is required</mat-error>
                     </mat-form-field>
                 </div>
             </div>
-
 
             <div class="col-md-6">
                 <div>
@@ -57,6 +58,16 @@
                         <mat-select formControlName="teacherId">
                             <mat-option *ngFor="let teacher of teachers" [value]="teacher.id">
                                 {{ teacher.name }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div>
+                    <mat-form-field appearance="fill"  class="w-100">
+                        <mat-label>Students</mat-label>
+                        <mat-select formControlName="students" multiple [compareWith]="comparePassengersFn">
+                            <mat-option *ngFor="let student of students" [value]="student">
+                                {{student.name}}
                             </mat-option>
                         </mat-select>
                     </mat-form-field>

@@ -63,6 +63,7 @@ namespace MB.SMS.WebApi.Controllers
         {
             var @class = _mapper.Map<Class>(classDto);
 
+            await UpdateClassesStudents(classDto, @class);
 
             await _context.Classes.AddAsync(@class);
 
@@ -80,10 +81,13 @@ namespace MB.SMS.WebApi.Controllers
                                         .Classes
                                         .Include(c => c.Teacher)
                                         .Include(c => c.Course)
+                                        .Include(c => c.Students)
                                         .Where(c => c.Id == id)
                                         .SingleOrDefaultAsync();
 
             _mapper.Map(classDto, @class);
+
+            await UpdateClassesStudents(classDto, @class);
 
             if (classDto.CourseId.HasValue)
             {
@@ -112,5 +116,30 @@ namespace MB.SMS.WebApi.Controllers
 
         }
 
+
+        private async Task UpdateClassesStudents(ClassDto classDto, Class @class)
+        {
+            var studentsIds = GetStudentIdsFromDto(classDto);
+
+            var students = await _context
+                                    .Students
+                                    .Where(s => studentsIds.Contains(s.Id))
+                                    .ToListAsync();
+
+            @class.Students.Clear();
+            @class.Students.AddRange(students);
+        }
+
+        private List<int> GetStudentIdsFromDto(ClassDto classDto)
+        {
+            var studentsIds = new List<int>();
+
+            foreach (var @class in classDto.Students)
+            {
+                studentsIds.Add(@class.Id);
+            }
+
+            return studentsIds;
+        }
     }
 }

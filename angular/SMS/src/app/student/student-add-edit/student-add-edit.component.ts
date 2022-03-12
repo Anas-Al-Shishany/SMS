@@ -27,7 +27,6 @@ export class StudentAddEditComponent implements OnInit {
     id: [0],
     name: ['', Validators.required],
     GPA: ['', Validators.required],
-    classes: ['', Validators.required]
   });
 
   constructor(
@@ -46,8 +45,6 @@ export class StudentAddEditComponent implements OnInit {
     if (this.pageMode == PageMode.Edit) {
       this.preparePageForEditMode();
     }
-
-    this.getClasses();
   }
 
   addEditStudent(): void {
@@ -75,14 +72,6 @@ export class StudentAddEditComponent implements OnInit {
     }
   }
 
-  getClasses(){
-    this.classSvc.getClasses().subscribe(
-      res =>{
-        this.classes = res;
-      }
-    )
-  }
-
   //#region Private functions
 
   private setPageMode(): void {
@@ -101,17 +90,10 @@ export class StudentAddEditComponent implements OnInit {
         this.studentForm.patchValue({
           id: student.id,
           name: student.name,
-          GPA: student.gpa,
-          classes: student.classes
-          
+          GPA: student.gpa,          
         });
       }
     );
   }
-  compareClassesFn(class1: Class, class2: Class): boolean {
-
-    return class1 && class2 ? class1.id === class2.id : class1 === class2;
-  }
-
 
 }

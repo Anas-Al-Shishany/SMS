@@ -7,7 +7,7 @@ export interface Class{
     id:Number;
     roomName:String;
     semester:String;
-    time:Time;
+    time:Date;
 
     students:Student[];
 

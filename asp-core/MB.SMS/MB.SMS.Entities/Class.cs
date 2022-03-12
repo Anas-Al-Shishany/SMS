@@ -17,7 +17,7 @@ namespace MB.SMS.Entities
         public int Id { get; set; }
         public string RoomName { get; set; }
         public int Semester { get; set; }
-        public string Time { get; set; }
+        public DateTime Time { get; set; }
         public List<Student> Students { get; set; }
 
         public int? CourseId { get; set; }

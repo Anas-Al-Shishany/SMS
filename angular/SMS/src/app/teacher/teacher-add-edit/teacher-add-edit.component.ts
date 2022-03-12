@@ -29,7 +29,6 @@ export class TeacherAddEditComponent implements OnInit {
     dateOfBirth: ['', Validators.required],
     schoolDegree: ['', Validators.required],
     almaMater: ['', Validators.required],
-    classes: [''],
   });
 
   constructor(
@@ -48,8 +47,6 @@ export class TeacherAddEditComponent implements OnInit {
     if (this.pageMode == PageMode.Edit) {
       this.preparePageForEditMode();
     }
-
-    this.getClasses()
   }
 
   addEditTeacher(): void {
@@ -98,25 +95,12 @@ export class TeacherAddEditComponent implements OnInit {
           name: teacher.name,
           dateOfBirth: teacher.dateOfBirth,
           schoolDegree: teacher.schoolDegree,
-          almaMater: teacher.almaMater,
-          classes: teacher.classes,        
+          almaMater: teacher.almaMater,        
         });
       }
       );
     }
     
-    private getClasses(){
-      this.classSvc.getClasses().subscribe(
-        res =>{
-          this.classes = res;
-        }
-      )
-    }
-
-    compareClassesFn(class1: Class, class2: Class): boolean {
-
-      return class1 && class2 ? class1.id === class2.id : class1 === class2;
-    }
     
   }
   
