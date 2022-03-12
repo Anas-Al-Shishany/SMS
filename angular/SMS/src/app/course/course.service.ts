@@ -25,7 +25,7 @@ export class CourseService {
     return this.http.put<any>(this.url + 'EditCourse/' + course.id, course)
   }
 
-  CreateCourse(course: Course):Observable<Course>{
+  CreateCourse(course: Course):Observable<any>{
     return this.http.post<Course>(this.url + 'CreateCourse', course)
   }
 

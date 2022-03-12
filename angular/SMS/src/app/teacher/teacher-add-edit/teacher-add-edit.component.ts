@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ClassService } from 'src/app/class/class.service';
 import { PageMode } from 'src/app/shared/enums/PageMode';
 import { Class } from 'src/app/shared/Models/Class';
-import { Student } from 'src/app/shared/Models/Student';
 import { Teacher } from 'src/app/shared/Models/Teacher';
 import { TeacherService } from '../teacher.service';
 
@@ -15,7 +15,6 @@ import { TeacherService } from '../teacher.service';
 })
 export class TeacherAddEditComponent implements OnInit {
 
-  students!:Student[]
 
   pageModeEnum = PageMode;
 
@@ -30,7 +29,7 @@ export class TeacherAddEditComponent implements OnInit {
     dateOfBirth: ['', Validators.required],
     schoolDegree: ['', Validators.required],
     almaMater: ['', Validators.required],
-    class: ['', Validators.required],
+    classes: [''],
   });
 
   constructor(
@@ -38,7 +37,8 @@ export class TeacherAddEditComponent implements OnInit {
     private teacherSvc: TeacherService,
     private router: Router,
     private route: ActivatedRoute,
-    private snackBar: MatSnackBar 
+    private snackBar: MatSnackBar,
+    private classSvc: ClassService
   ) { }
 
   ngOnInit(): void {
@@ -48,6 +48,8 @@ export class TeacherAddEditComponent implements OnInit {
     if (this.pageMode == PageMode.Edit) {
       this.preparePageForEditMode();
     }
+
+    this.getClasses()
   }
 
   addEditTeacher(): void {
@@ -75,31 +77,46 @@ export class TeacherAddEditComponent implements OnInit {
     }
   }
 
+  
   //#region Private functions
-
+  
   private setPageMode(): void {
-
+    
     if (this.route.snapshot.paramMap.get("id")) {
       this.teacherId = Number(this.route.snapshot.paramMap.get("id"));
       this.pageMode = PageMode.Edit;
     }
   }
-
+  
   private preparePageForEditMode(): void {
-
+    
     this.teacherSvc.getTeacherById(this.teacherId).subscribe(
       teacher => {
-
+        
         this.teacherForm.patchValue({
           id: teacher.id,
           name: teacher.name,
           dateOfBirth: teacher.dateOfBirth,
           schoolDegree: teacher.schoolDegree,
           almaMater: teacher.almaMater,
-          class: teacher.class,        
+          classes: teacher.classes,        
         });
       }
-    );
-  }
+      );
+    }
+    
+    private getClasses(){
+      this.classSvc.getClasses().subscribe(
+        res =>{
+          this.classes = res;
+        }
+      )
+    }
 
-}
+    compareClassesFn(class1: Class, class2: Class): boolean {
+
+      return class1 && class2 ? class1.id === class2.id : class1 === class2;
+    }
+    
+  }
+  

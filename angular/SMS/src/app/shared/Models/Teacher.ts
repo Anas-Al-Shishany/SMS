@@ -6,5 +6,5 @@ export interface Teacher{
  dateOfBirth:Date
  schoolDegree:string;
  almaMater:String;
- class:Class   
+ classes:Class[]
 }

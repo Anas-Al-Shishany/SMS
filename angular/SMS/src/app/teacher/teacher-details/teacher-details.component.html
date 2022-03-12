@@ -21,9 +21,23 @@
         <div class="col-md-10">{{ teacherDetails?.almaMater}}
         </div>
     </div>
+
+    <h3 class="mt-4 mb-0">Teacher Classes</h3>
     <div class="row mb-3">
-        <div class="col-md-2 font-weight-bold">Class</div>
-        <div class="col-md-10">{{ teacherDetails?.class }}</div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let class of teacherDetails?.classes">
+                    <td>
+                        {{class.roomName}}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
     </div>
     
 </div>

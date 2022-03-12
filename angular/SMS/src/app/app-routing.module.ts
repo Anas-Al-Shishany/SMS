@@ -21,23 +21,23 @@ import { TeacherComponent } from './teacher/teacher.component';
 const routes: Routes = [
   {path: 'classes', component:ClassComponent},
   {path: 'classes/add', component:ClassAddEditComponent},
-  {path: 'classes/edit/:id', component:ClassAddEditComponent},
   {path: 'classes/:id', component:ClassDetailsComponent},
+  {path: 'classes/edit/:id', component:ClassAddEditComponent},
   
   {path: 'courses', component:CourseComponent},
   {path: 'courses/add', component:CourseAddEditComponent},
-  {path: 'courses/edit/:id', component:CourseAddEditComponent},
   {path: 'courses/:id', component:CourseDetailsComponent},
+  {path: 'courses/edit/:id', component:CourseAddEditComponent},
 
   {path: 'teachers', component:TeacherComponent},
   {path: 'teachers/add', component:TeacherAddEditComponent},
-  {path: 'teachers/edit/:id', component:TeacherAddEditComponent},
   {path: 'teachers/:id', component:TeacherDetailsComponent},
+  {path: 'teachers/edit/:id', component:TeacherAddEditComponent},
 
   {path: 'students', component:StudentComponent},
   {path: 'students/add', component:StudentAddEditComponent},
-  {path: 'students/edit/:id', component:StudentAddEditComponent},
   {path: 'students/:id', component:StudentDetailsComponent},
+  {path: 'students/edit/:id', component:StudentAddEditComponent},
 
   {path: '**', component:HomeComponent}
 

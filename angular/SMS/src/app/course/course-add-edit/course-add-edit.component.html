@@ -1,5 +1,5 @@
 <div class="container my-4">
-    <h1 *ngIf="courseId == pageModeEnum.Add">Add a new course</h1>
+    <h1 *ngIf="pageMode == pageModeEnum.Add">Add a new course</h1>
     <h1 *ngIf="pageMode == pageModeEnum.Edit">Edit course</h1>
     <hr>
 
@@ -30,6 +30,7 @@
                         <mat-error>Description is required</mat-error>
                     </mat-form-field>
                 </div>
+             
             </div>
         </div>
 

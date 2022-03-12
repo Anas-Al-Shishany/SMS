@@ -8,6 +8,10 @@ namespace MB.SMS.Dtos
 {
     public class CourseDto
     {
+        public CourseDto()
+        {
+            Classes = new List<ClassDto>();
+        }
         public int Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }

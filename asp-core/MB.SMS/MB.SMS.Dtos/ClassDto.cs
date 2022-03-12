@@ -8,6 +8,10 @@ namespace MB.SMS.Dtos
 {
     public class ClassDto
     {
+        public ClassDto()
+        {
+            Students = new List<StudentDto>();
+        }
         public int Id { get; set; }
         public string RoomName { get; set; }
         public int Semester { get; set; }
@@ -17,7 +21,7 @@ namespace MB.SMS.Dtos
         public int? CourseId { get; set; }
         public CourseDto Course { get; set; }
 
-        public int TeacherId { get; set; }
+        public int? TeacherId { get; set; }
         public TeacherDto Teacher { get; set; }
     }
 }

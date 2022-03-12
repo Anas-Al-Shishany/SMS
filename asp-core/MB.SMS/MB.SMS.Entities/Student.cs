@@ -8,6 +8,12 @@ namespace MB.SMS.Entities
 {
     public class Student
     {
+
+        public Student()
+        {
+            Classes = new List<Class>();
+        }
+
         public int Id { get; set; }
         public string Name { get; set; }
         public int GPA { get; set; }

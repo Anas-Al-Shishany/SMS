@@ -9,7 +9,6 @@
                 <th>Room Name</th>
                 <th>Semester</th>
                 <th>Time</th>
-                <th>Student</th>
                 <th>Course</th>
                 <th>Teacher</th>
                 <th>Actions</th>
@@ -20,9 +19,8 @@
                 <td>{{class.roomName}}</td>
                 <td>{{class.semester}}</td>
                 <td>{{class.time}}</td>
-                <td>{{class.student}}</td>
-                <td>{{class.course }}</td>
-                <td>{{class.teacher }}</td>
+                <td>{{class.course?.name}}</td>
+                <td>{{class.teacher?.name}}</td>
                 <td>
                     <a class="mr-2 text-info" [routerLink]="['/classes', class.id]">
                         <mat-icon>info</mat-icon>
@@ -37,4 +35,7 @@
             </tr>
         </tbody>
     </table>
+
+    <mat-spinner class="mx-auto mt-5" *ngIf="showSpinner"></mat-spinner>
+
 </div>

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ClassService } from 'src/app/class/class.service';
 import { PageMode } from 'src/app/shared/enums/PageMode';
 import { Class } from 'src/app/shared/Models/Class';
 import { Student } from 'src/app/shared/Models/Student';
@@ -15,8 +16,6 @@ import { StudentService } from '../student.service';
 export class StudentAddEditComponent implements OnInit {
 
 
-  students!:Student[]
-
   pageModeEnum = PageMode;
 
   studentId: number = 0;
@@ -28,7 +27,7 @@ export class StudentAddEditComponent implements OnInit {
     id: [0],
     name: ['', Validators.required],
     GPA: ['', Validators.required],
-    class: ['', Validators.required],
+    classes: ['', Validators.required]
   });
 
   constructor(
@@ -36,7 +35,8 @@ export class StudentAddEditComponent implements OnInit {
     private studentSvc: StudentService,
     private router: Router,
     private route: ActivatedRoute,
-    private snackBar: MatSnackBar 
+    private snackBar: MatSnackBar,
+    private classSvc: ClassService
   ) { }
 
   ngOnInit(): void {
@@ -46,6 +46,8 @@ export class StudentAddEditComponent implements OnInit {
     if (this.pageMode == PageMode.Edit) {
       this.preparePageForEditMode();
     }
+
+    this.getClasses();
   }
 
   addEditStudent(): void {
@@ -73,6 +75,14 @@ export class StudentAddEditComponent implements OnInit {
     }
   }
 
+  getClasses(){
+    this.classSvc.getClasses().subscribe(
+      res =>{
+        this.classes = res;
+      }
+    )
+  }
+
   //#region Private functions
 
   private setPageMode(): void {
@@ -92,11 +102,16 @@ export class StudentAddEditComponent implements OnInit {
           id: student.id,
           name: student.name,
           GPA: student.gpa,
-          class: student.class,
+          classes: student.classes
           
         });
       }
     );
   }
+  compareClassesFn(class1: Class, class2: Class): boolean {
+
+    return class1 && class2 ? class1.id === class2.id : class1 === class2;
+  }
+
 
 }

@@ -10,7 +10,6 @@
                 <th>Date Of Birth</th>
                 <th>School Degree</th>
                 <th>AlamaMater</th>
-                <th>Class</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -20,7 +19,6 @@
                 <td>{{teacher.dateOfBirth}}</td>
                 <td>{{teacher.schoolDegree}}</td>
                 <td>{{teacher.almaMater}}</td>
-                <td>{{teacher.class }}</td>
                 <td>
                     <a class="mr-2 text-info" [routerLink]="['/teachers', teacher.id]">
                         <mat-icon>info</mat-icon>
@@ -35,4 +33,6 @@
             </tr>
         </tbody>
     </table>
+    <mat-spinner class="mx-auto mt-5" *ngIf="showSpinner"></mat-spinner>
+
 </div>

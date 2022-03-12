@@ -1,5 +1,5 @@
 <div class="container my-4">
-    <h1 *ngIf="classId == pageModeEnum.Add">Add a new class</h1>
+    <h1 *ngIf="pageMode == pageModeEnum.Add">Add a new class</h1>
     <h1 *ngIf="pageMode == pageModeEnum.Edit">Edit class</h1>
     <hr>
 
@@ -44,17 +44,24 @@
                 <div>
                     <mat-form-field appearance="fill" class="w-100">
                         <mat-label>Course</mat-label>
-                        <input matInput placeholder="Course" formControlName="course" required>
-                        <mat-error>Course is required</mat-error>
+                        <mat-select formControlName="courseId">
+                            <mat-option *ngFor="let course of courses" [value]="course.id">
+                                {{ course.name }}
+                            </mat-option>
+                        </mat-select>
                     </mat-form-field>
                 </div>
                 <div>
                     <mat-form-field appearance="fill" class="w-100">
                         <mat-label>Teacher</mat-label>
-                        <input matInput placeholder="Teacher" formControlName="teacher" required>
-                        <mat-error>Teacher is required</mat-error>
+                        <mat-select formControlName="teacherId">
+                            <mat-option *ngFor="let teacher of teachers" [value]="teacher.id">
+                                {{ teacher.name }}
+                            </mat-option>
+                        </mat-select>
                     </mat-form-field>
                 </div>
+              
             </div>
         </div>
 

@@ -30,6 +30,8 @@ namespace MB.SMS.WebApi.Controllers
         {
             var classes = await _context
                                         .Classes
+                                        .Include(t => t.Teacher)
+                                        .Include(c => c.Course)
                                         .ToListAsync();
 
             var classDtos = _mapper.Map<List<Class>, List<ClassDto>>(classes);
@@ -43,6 +45,8 @@ namespace MB.SMS.WebApi.Controllers
             var @class = await _context
                                         .Classes
                                         .Include(s => s.Students)
+                                        .Include(c => c.Course)
+                                        .Include(t => t.Teacher)
                                         .Where(c => c.Id == id)
                                         .SingleOrDefaultAsync();
 
@@ -57,11 +61,15 @@ namespace MB.SMS.WebApi.Controllers
         [HttpPost]
         public async Task<ClassDto> CreateClass([FromBody] ClassDto classDto)
         {
-            var driver = _mapper.Map<Class>(classDto);
-            await _context.Classes.AddAsync(driver);
+            var @class = _mapper.Map<Class>(classDto);
+
+
+            await _context.Classes.AddAsync(@class);
+
             await _context.SaveChangesAsync();
 
-            classDto.Id = driver.Id;
+
+            classDto.Id = @class.Id;
             return classDto;
         }
 
@@ -70,9 +78,23 @@ namespace MB.SMS.WebApi.Controllers
         {
             var @class = await _context
                                         .Classes
-                                        .FindAsync(id);
+                                        .Include(c => c.Teacher)
+                                        .Include(c => c.Course)
+                                        .Where(c => c.Id == id)
+                                        .SingleOrDefaultAsync();
 
             _mapper.Map(classDto, @class);
+
+            if (classDto.CourseId.HasValue)
+            {
+                var course = await _context.Courses.FindAsync(classDto.CourseId);
+                @class.Course = course;
+            }
+            if (classDto.TeacherId.HasValue)
+            {
+                var teacher = await _context.Teachers.FindAsync(classDto.TeacherId);
+                @class.Teacher = teacher;
+            }
 
             _context.Classes.Update(@class);
             await _context.SaveChangesAsync();
@@ -89,5 +111,6 @@ namespace MB.SMS.WebApi.Controllers
             await _context.SaveChangesAsync();
 
         }
+
     }
 }

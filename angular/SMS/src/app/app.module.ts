@@ -1,19 +1,19 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
-import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { TeacherComponent } from './teacher/teacher.component';
 import { StudentComponent } from './student/student.component';
 import { CourseComponent } from './course/course.component';
 import { ClassComponent } from './class/class.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HomeComponent } from './home/home.component';
 
+import { AppRoutingModule } from './app-routing.module';
+import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from './shared/shared.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
-import { HomeComponent } from './home/home.component';
 
 import { ClassAddEditComponent } from './class/class-add-edit/class-add-edit.component';
 import { ClassDeleteDialogComponent } from './class/class-delete-dialog/class-delete-dialog.component';
@@ -33,6 +33,7 @@ import { StudentDetailsComponent } from './student/student-details/student-detai
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -41,18 +42,23 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     CourseComponent,
     ClassComponent,
     HomeComponent,
+
     ClassAddEditComponent,
     ClassDeleteDialogComponent,
     ClassDetailsComponent,
+
     CourseAddEditComponent,
     CourseDeleteDialogComponent,
     CourseDetailsComponent,
+
     TeacherDetailsComponent,
     TeacherDeleteDialogComponent,
     TeacherAddEditComponent,
+
     StudentAddEditComponent,
     StudentDeleteDialogComponent,
-    StudentDetailsComponent
+    StudentDetailsComponent,
+
   ],
   imports: [
     BrowserModule,

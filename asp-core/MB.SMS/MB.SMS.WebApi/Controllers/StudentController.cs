@@ -61,9 +61,13 @@ namespace MB.SMS.WebApi.Controllers
         {
             var student = await _context
                                         .Students
-                                        .FindAsync(id);
+                                        .Include(c => c.Classes)
+                                        .Where(c => c.Id == id)
+                                        .SingleOrDefaultAsync();
 
             _mapper.Map(studentDto, student);
+
+            await UpdateStudentClasses(studentDto, student);
 
             _context.Students.Update(student);
             await _context.SaveChangesAsync();
@@ -74,6 +78,8 @@ namespace MB.SMS.WebApi.Controllers
         public async Task<StudentDto> CreateStudent([FromBody] StudentDto studentDto)
         {
             var student = _mapper.Map<Student>(studentDto);
+
+            await UpdateStudentClasses(studentDto, student);
 
             await _context.Students.AddAsync(student);
             await _context.SaveChangesAsync();
@@ -95,6 +101,32 @@ namespace MB.SMS.WebApi.Controllers
 
         }
 
-        
+
+        private async Task UpdateStudentClasses(StudentDto studentDto, Student student)
+        {
+            var classesIds = GetClassIdsFromDto(studentDto);
+
+            var classes = await _context
+                                    .Classes
+                                    .Where(c => classesIds.Contains(c.Id))
+                                    .ToListAsync();
+
+            student.Classes.Clear();
+            student.Classes.AddRange(classes);
+        }
+
+        private List<int> GetClassIdsFromDto(StudentDto studentDto)
+        {
+            var classesIds = new List<int>();
+
+            foreach (var @class in studentDto.Classes)
+            {
+                classesIds.Add(@class.Id);
+            }
+
+            return classesIds;
+        }
+
+
     }
 }

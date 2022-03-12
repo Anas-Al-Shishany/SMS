@@ -57,8 +57,13 @@ namespace MB.SMS.WebApi.Controllers
         {
             var teacher = await _context
                                         .Teachers
-                                        .FindAsync(id);
+                                        .Include(c => c.Classes)
+                                        .Where(c => c.Id == id)
+                                        .SingleOrDefaultAsync();
+
             _mapper.Map(teacherDto, teacher);
+
+            await UpdateTeacherClasses(teacherDto, teacher);
 
             _context.Teachers.Update(teacher);
             await _context.SaveChangesAsync();
@@ -68,6 +73,8 @@ namespace MB.SMS.WebApi.Controllers
         public async Task<TeacherDto> CreateTeacher([FromBody] TeacherDto teacherDto)
         {
             var teacher = _mapper.Map<Teacher>(teacherDto);
+
+            await UpdateTeacherClasses(teacherDto, teacher);
 
             await _context.Teachers.AddAsync(teacher);
             await _context.SaveChangesAsync();
@@ -83,11 +90,36 @@ namespace MB.SMS.WebApi.Controllers
         {
             var teacher = await _context.Teachers.FindAsync(id);
             
-            _context.Teachers.Remove(teacher);
+            _context.Teachers.Remove(teacher);  
             await _context.SaveChangesAsync();
 
         }
 
-       
+
+        private async Task UpdateTeacherClasses(TeacherDto teacherDto, Teacher teacher)
+        {
+            var classesIds = GetClassIdsFromDto(teacherDto);
+
+            var classes = await _context
+                                    .Classes
+                                    .Where(c => classesIds.Contains(c.Id))
+                                    .ToListAsync();
+
+            teacher.Classes.Clear();
+            teacher.Classes.AddRange(classes);
+        }
+
+        private List<int> GetClassIdsFromDto(TeacherDto teacherDto)
+        {
+            var classesIds = new List<int>();
+
+            foreach (var @class in teacherDto.Classes)
+            {
+                classesIds.Add(@class.Id);
+            }
+
+            return classesIds;
+        }
+
     }
 }

@@ -1,5 +1,5 @@
 <div class="container my-4">
-    <h1 *ngIf="teacherId == pageModeEnum.Add">Add a new teacher</h1>
+    <h1 *ngIf="pageMode == pageModeEnum.Add">Add a new teacher</h1>
     <h1 *ngIf="pageMode == pageModeEnum.Edit">Edit teacher</h1>
     <hr>
 
@@ -46,7 +46,7 @@
                 <div>
                     <mat-form-field appearance="fill" class="w-100">
                         <mat-label>Classes</mat-label>
-                        <mat-select formControlName="class" multiple required>
+                        <mat-select formControlName="classes" multiple required [compareWith]="compareClassesFn">
                             <mat-option *ngFor="let class of classes" [value]="class">
                               {{class.roomName}}
                             </mat-option>

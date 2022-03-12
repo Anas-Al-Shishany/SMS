@@ -61,7 +61,9 @@ namespace MB.SMS.WebApi.Controllers
         {
             var course = await _context
                                         .Courses
-                                        .FindAsync(id);
+                                        .Include(c => c.Classes)
+                                        .Where(c => c.Id == id)
+                                        .SingleOrDefaultAsync();
 
             _mapper.Map(courseDto, course);
 
@@ -69,19 +71,14 @@ namespace MB.SMS.WebApi.Controllers
             await _context.SaveChangesAsync();
         }
 
-
+ 
         [HttpPost]
-        public async Task<CourseDto> CreateCourse([FromBody] CourseDto courseDto)
+        public async Task CreateCourse([FromBody] CourseDto courseDto)
         {
             var course = _mapper.Map<Course>(courseDto);
 
             await _context.Courses.AddAsync(course);
             await _context.SaveChangesAsync();
-
-            courseDto.Id = course.Id;
-
-            return courseDto;
-
 
         }
 
@@ -94,5 +91,7 @@ namespace MB.SMS.WebApi.Controllers
             await _context.SaveChangesAsync();
 
         }
+
+
     }
 }

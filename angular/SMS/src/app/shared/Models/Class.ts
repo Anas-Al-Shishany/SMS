@@ -9,11 +9,11 @@ export interface Class{
     semester:String;
     time:Time;
 
-    student:Student;
+    students:Student[];
 
-    courseId:Number;
+    courseId?:number;
     course:Course;
 
-    teacherId:Number;
+    teacherId?:number;
     teacher:Teacher;
 }

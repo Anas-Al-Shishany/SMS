@@ -31,9 +31,9 @@ body {
 
 .carousel-caption {
     position: absolute;
-    right: 49%;
-    bottom: 264px;
-    left: 15%;
+    right: 56%;
+    bottom: 155px;
+    left: 10%;
     z-index: 10;
     padding-top: 20px;
     padding-bottom: 20px;
@@ -108,4 +108,38 @@ body {
 .test{
     margin-top: -24px;
     color: gray;
+}
+
+.fa-twitter{
+    font-size: 20px;
+    color: white;
+    background: orange;
+    padding: 5px;
+    border-radius: 15px;
+}
+
+.fa-facebook{
+    font-size: 20px;
+    color: white;
+    background: orange;
+    padding: 5px;
+    border-radius: 15px;
+}
+
+.fa-instagram{
+    font-size: 20px;
+    color: white;
+    background: orange;
+    padding: 5px;
+    border-radius: 15px;
+}
+
+
+main{
+    min-height: 57vh;
+}
+footer{ 
+    position: absolute !important;
+    bottom: -1 !important;
+    width: 100%;
 }

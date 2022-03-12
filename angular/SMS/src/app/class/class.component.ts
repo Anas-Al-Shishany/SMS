@@ -13,14 +13,16 @@ import { ClassService } from './class.service';
 export class ClassComponent implements OnInit {
 
   classes!: Class[]
-  showSpinner:boolean = true
+  showSpinner = true
 
   constructor(private classSvc:ClassService,
               private dialog:MatDialog,
               private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
+
     this.getAllClasses();
+
   }
 
   deleteClass(id: Number): void{
@@ -52,7 +54,7 @@ export class ClassComponent implements OnInit {
     this.classSvc.getClasses().subscribe(
       classs =>{
         this.classes = classs,
-        this.showSpinner == false
+        this.showSpinner = false
       }
     )
   }

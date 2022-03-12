@@ -52,7 +52,7 @@ export class StudentComponent implements OnInit {
     this.studentSvc.getStudents().subscribe(
       student =>{
         this.students = student,
-        this.showSpinner == false
+        this.showSpinner = false
       }
     )
   }

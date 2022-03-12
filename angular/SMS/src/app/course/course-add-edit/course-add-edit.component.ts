@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ClassService } from 'src/app/class/class.service';
 import { PageMode } from 'src/app/shared/enums/PageMode';
+import { Class } from 'src/app/shared/Models/Class';
 import { Course } from 'src/app/shared/Models/Course';
 import { CourseService } from '../course.service';
 
@@ -15,21 +17,25 @@ export class CourseAddEditComponent implements OnInit {
 
   pageModeEnum = PageMode;
 
+  classes!:Class[]
+
   courseId: number = 0;
   pageMode: PageMode = PageMode.Add;
 
   courseForm = this.fb.group({
     id: [0],
     name: ['', Validators.required],
-    description: ['', Validators.required]
+    description: ['', Validators.required],
   });
 
   constructor(
     private fb: FormBuilder,
     private courseSvc: CourseService,
+    private classSvc: ClassService,
     private router: Router,
     private route: ActivatedRoute,
-    private snackBar: MatSnackBar 
+    private snackBar: MatSnackBar ,
+
   ) { }
 
   ngOnInit(): void {
@@ -39,6 +45,7 @@ export class CourseAddEditComponent implements OnInit {
     if (this.pageMode == PageMode.Edit) {
       this.preparePageForEditMode();
     }
+
   }
 
   addEditCourse(): void {
@@ -66,6 +73,7 @@ export class CourseAddEditComponent implements OnInit {
     }
   }
 
+
   //#region Private functions
 
   private setPageMode(): void {
@@ -76,6 +84,7 @@ export class CourseAddEditComponent implements OnInit {
     }
   }
 
+
   private preparePageForEditMode(): void {
 
     this.courseSvc.getCourseById(this.courseId).subscribe(
@@ -84,7 +93,7 @@ export class CourseAddEditComponent implements OnInit {
         this.courseForm.patchValue({
           id: course.id,
           name: course.name,
-          description: course.description,
+          description: course.description
           
         });
       }
