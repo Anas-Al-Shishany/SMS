@@ -1,4 +1,3 @@
-import { Time } from "@angular/common";
 import { Course } from "./Course";
 import { Student } from "./Student";
 import { Teacher } from "./Teacher";

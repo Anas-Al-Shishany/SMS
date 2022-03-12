@@ -18,20 +18,13 @@ export class CourseComponent implements OnInit {
 
   courseId: number = 0;
 
-  classes!:Class[]
+
   courses!: Course[]
   showSpinner:boolean = true
 
-  courseForm = this.fb.group({
-    id: [0],
-    classes: ['', Validators.required],
-  });
-
   constructor(private courseSvc: CourseService,
               private dialog:MatDialog,
-              private snackBar: MatSnackBar,
-              private fb: FormBuilder,
-              private router:Router) { }
+              private snackBar: MatSnackBar,) { }
 
   ngOnInit(): void {
     this.getAllCourses();

@@ -41,6 +41,7 @@ namespace MB.SMS.WebApi
                                 .AllowAnyHeader();
                     });
             });
+
             services.AddAutoMapper(typeof(Startup));
 
             services.AddControllers()

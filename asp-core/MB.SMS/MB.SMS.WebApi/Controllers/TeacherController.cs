@@ -55,15 +55,10 @@ namespace MB.SMS.WebApi.Controllers
         [HttpPut("{id}")]
         public async Task EditTeacher(int id, [FromBody] TeacherDto teacherDto)
         {
-            var teacher = await _context
-                                        .Teachers
-                                        .Include(c => c.Classes)
-                                        .Where(c => c.Id == id)
-                                        .SingleOrDefaultAsync();
+            var teacher = await _context.Teachers.FindAsync(id);
 
             _mapper.Map(teacherDto, teacher);
 
-            await UpdateTeacherClasses(teacherDto, teacher);
 
             _context.Teachers.Update(teacher);
             await _context.SaveChangesAsync();
@@ -74,7 +69,6 @@ namespace MB.SMS.WebApi.Controllers
         {
             var teacher = _mapper.Map<Teacher>(teacherDto);
 
-            await UpdateTeacherClasses(teacherDto, teacher);
 
             await _context.Teachers.AddAsync(teacher);
             await _context.SaveChangesAsync();

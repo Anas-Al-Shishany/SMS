@@ -17,7 +17,6 @@ export class CourseAddEditComponent implements OnInit {
 
   pageModeEnum = PageMode;
 
-  classes!:Class[]
 
   courseId: number = 0;
   pageMode: PageMode = PageMode.Add;
@@ -31,7 +30,6 @@ export class CourseAddEditComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private courseSvc: CourseService,
-    private classSvc: ClassService,
     private router: Router,
     private route: ActivatedRoute,
     private snackBar: MatSnackBar ,
@@ -94,7 +92,6 @@ export class CourseAddEditComponent implements OnInit {
           id: course.id,
           name: course.name,
           description: course.description
-          
         });
       }
     );
